@@ -17,7 +17,6 @@ int main(void)
     float ay = -9.8f;
     Vector3 vel = {6.0f, 0.1f, 6.0f};
     float bounce_factor = -0.8;
-    bool is_paused = false;
 
     Vector3 center = {-10, 10, 0};
 
