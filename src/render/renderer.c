@@ -14,15 +14,22 @@ Camera3D renderer_init_camera(void){
     return camera;
 }
 
-void renderer_draw_scene(const Camera3D *camera, const Body *bodies, size_t count){
+void renderer_draw_scene(const Camera3D *camera, const Body *bodies, size_t count, bool draw_grid, float base_radius){
     BeginMode3D(*camera);
 
-    DrawGrid(20, 2.0f);
+    if (draw_grid) {
+        DrawGrid(20, 2.0f);
+    }
+
+    const Color palette[] = { SKYBLUE, RED, GREEN, ORANGE, PURPLE, PINK, YELLOW };
+    size_t palette_len = sizeof(palette) / sizeof(palette[0]);
 
     for (size_t i = 0; i < count; ++i){
-        float radius = fmaxf(0.3f, 0.1 * cbrtf(bodies[i].mass)); // radius proportional to cbrt(mass), clamped
+        float radius = (bodies[i].mass >= STAR_MASS_THRESHOLD)
+                       ? 1.5f
+                       : fmaxf(base_radius, base_radius * cbrtf(bodies[i].mass));
         Vector3 center = (Vector3) {bodies[i].position.x, bodies[i].position.y, bodies[i].position.z};
-        Color color = (bodies[i].mass >= 100.0f) ? GOLD : SKYBLUE;
+        Color color = (bodies[i].mass >= STAR_MASS_THRESHOLD) ? GOLD : palette[i % palette_len];
 
         DrawSphere(center, radius, color);
     }
