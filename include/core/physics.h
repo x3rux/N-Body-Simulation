@@ -6,7 +6,7 @@
 // computes acceleration for each body in bodies with plummer softening
 void physics_compute_acceleration(Body *bodies, size_t count, float G, float softening);
 
-// leap frog integrator for veloity, position and acceleration
+// leap frog integrator for velocity, position and acceleration
 void physics_step_leapfrog(Body *bodies, size_t count, float dt, float G, float softening);
 
 #endif
