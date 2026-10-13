@@ -12,6 +12,10 @@ static inline Vec3 vec3_create(float x, float y, float z){
     return (Vec3) {x, y, z};
 }
 
+static inline Vec3 vec3_zero(void){
+    return (Vec3) { 0 };
+}
+
 static inline Vec3 vec3_add(Vec3 a, Vec3 b){
     return (Vec3) {a.x + b.x, a.y + b.y, a.z + b.z};
 }
